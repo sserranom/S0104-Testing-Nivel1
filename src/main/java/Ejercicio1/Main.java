@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        ArrayList<Book> books = new ArrayList<>();
+       // ArrayList<Book> books = new ArrayList<>();
         ManageBooks manageBooks = new ManageBooks(new ArrayList<>());
 
         manageBooks.addBook(new Book("Bases de Datos"));
