@@ -45,6 +45,5 @@ public class DniValidator {
         } else {
             throw new IllegalArgumentException("Número de DNI inválido. Debe contener 8 dígitos.");
         }
-
     }
 }
