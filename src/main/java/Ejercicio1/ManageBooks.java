@@ -3,16 +3,17 @@ package Ejercicio1;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 public class ManageBooks {
 
-    public ArrayList<Book> books;
+    public List<Book> books;
 
     public ManageBooks() {
         this.books = new ArrayList<>();
     }
 
-    public ManageBooks(ArrayList<Book> books) {
+    public ManageBooks(List<Book> books) {
         this.books = books;
     }
 
@@ -31,7 +32,7 @@ public class ManageBooks {
         books.sort(Comparator.comparing(b -> b.getTitle().toLowerCase()));
     }
 
-    public void getAllBook() {
+    public void getAllBooks() {
         int index = 0;
         for (Book currentBook : books) {
             System.out.println(index + ": " + currentBook.getTitle());
@@ -40,7 +41,7 @@ public class ManageBooks {
     }
 
 
-    public ArrayList<Book> getBooks() {
+    public List<Book> getBooks() {
         if (books.isEmpty()) {
             System.out.println("No hay Libros en la colección");
         }
@@ -48,14 +49,14 @@ public class ManageBooks {
 
     }
 
-    public Book getBooksByIndex(int index) {
+    public Book getBookByIndex(int index) {
         if (index < 0 || index >= books.size()) {
             throw new IndexOutOfBoundsException("El Índice " + index + " esta fuera de rango");
         }
         return books.get(index);
     }
 
-    public void addBooksByIndex(int index, Book book) {
+    public void addBookByIndex(int index, Book book) {
         if (index < 0 || index > books.size()) {
             throw new IndexOutOfBoundsException("El Índice " + index + " esta fuera de rango");
         }
@@ -71,7 +72,7 @@ public class ManageBooks {
         return null;
     }
 
-    public boolean removeBooks(String title) {
+    public boolean removeBook(String title) {
 
         Iterator<Book> iterator = books.iterator();
         while (iterator.hasNext()) {

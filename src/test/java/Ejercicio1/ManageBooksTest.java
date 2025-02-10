@@ -1,8 +1,8 @@
 package Ejercicio1;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
@@ -21,12 +21,14 @@ public class ManageBooksTest {
         manageBooks.addBook(new Book("Lenguaje C"));
     }
 
+    @DisplayName("Comprueba si la lista no es nula despues de agregar Objetos")
     @Test
     public void bookListNotNullTest() {
 
         assertNotNull(manageBooks.getBooks(), "La Lista deberia tener almenos un elemento");
     }
 
+    @DisplayName("Comprueba que la Lista tenga el tamaño esperado despues de agregar varios objetos")
     @Test
     public void listSizeTest() {
 
@@ -34,12 +36,14 @@ public class ManageBooksTest {
 
     }
 
+    @DisplayName("Valida que la lista contenga un libro especifico en su correcta posición")
     @Test
     public void getBookByTitleTest() {
 
-        assertEquals(manageBooks.getBookByTitle("Bases de Datos"), manageBooks.getBooksByIndex(0));
+        assertEquals(manageBooks.getBookByTitle("Bases de Datos"), manageBooks.getBookByIndex(0));
     }
 
+    @DisplayName("Valida que no exiten libros duplicados en la lista")
     @Test
     public void noDuplicateTitlesTest() {
 
@@ -47,45 +51,41 @@ public class ManageBooksTest {
         assertEquals(4, manageBooks.getBooks().size());
     }
 
+    @DisplayName("Valida que se puede recuperar el titulo de un libro dada una posicion especifica")
     @Test
     public void getBooksByIndexTest() {
 
-        assertEquals(manageBooks.getBooksByIndex(3), manageBooks.getBookByTitle("Unix"));
+        assertEquals(manageBooks.getBookByIndex(3), manageBooks.getBookByTitle("Unix"));
     }
 
+    @DisplayName("Valida que añadir un libro modifica correctamente la lista")
     @Test
     public void correctListUpdate() {
 
         assertEquals(4, manageBooks.getBooks().size());
-
         manageBooks.addBook(new Book("Javascript"));
-        manageBooks.addBook(new Book("Sql Server"));
 
-        assertEquals(6, manageBooks.getBooks().size());
-        assertEquals(manageBooks.getBooksByIndex(5), manageBooks.getBookByTitle("Unix"));
+        assertEquals(5, manageBooks.getBooks().size());
+        assertEquals(manageBooks.getBookByIndex(4), manageBooks.getBookByTitle("Unix"));
     }
 
+    @DisplayName("Valida que eliminar un libro disminuye correctamente la lista")
     @Test
     public void removeBookSizeTest() {
 
-        assertEquals(4, manageBooks.getBooks().size());
-        manageBooks.removeBooks("Unix");
+        manageBooks.removeBook("Unix");
         assertEquals(3, manageBooks.getBooks().size());
     }
 
+    @DisplayName("Valida que la lista permanece ordenada alfabeticamente despues de añdir o eliminar un libro")
     @Test
     public void checkListOrderTest() {
 
-        assertEquals("Bases de Datos", manageBooks.getBooksByIndex(0).getTitle());
-        assertEquals("Lenguaje C", manageBooks.getBooksByIndex(1).getTitle());
-        assertEquals("Testing con JUnit", manageBooks.getBooksByIndex(2).getTitle());
-        assertEquals("Unix", manageBooks.getBooksByIndex(3).getTitle());
+        manageBooks.removeBook("Bases de Datos");
 
-        manageBooks.removeBooks("Bases de Datos");
-
-        assertEquals("Lenguaje C", manageBooks.getBooksByIndex(0).getTitle());
-        assertEquals("Testing con JUnit", manageBooks.getBooksByIndex(1).getTitle());
-        assertEquals("Unix", manageBooks.getBooksByIndex(2).getTitle());
+        assertEquals("Lenguaje C", manageBooks.getBookByIndex(0).getTitle());
+        assertEquals("Testing con JUnit", manageBooks.getBookByIndex(1).getTitle());
+        assertEquals("Unix", manageBooks.getBookByIndex(2).getTitle());
     }
 }
 
