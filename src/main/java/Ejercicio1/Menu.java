@@ -1,5 +1,6 @@
 package Ejercicio1;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -10,6 +11,13 @@ public class Menu {
     public Menu(ManageBooks manageBooks, Scanner input) {
         this.manageBooks = manageBooks;
         this.input = input;
+    }
+
+    public void printBookTitles() {
+        List<String> bookTitles = manageBooks.getAllBooks();
+        for (String titles : bookTitles) {
+            System.out.println(titles);
+        }
     }
 
     public void showMenu() {
@@ -26,23 +34,28 @@ public class Menu {
                 while (true) {
                     System.out.println("Ingrese el nuevo libro: ");
                     String title = input.nextLine();
-                    manageBooks.addBook(new Book(title));
+                    try {
+                        manageBooks.addBook(new Book(title));
+                    } catch (Exception e) {
+                        System.out.println("Error " + e.getMessage());
+                    }
+
                     System.out.println("Desea Agregar otro libro: S/N");
                     String addMore = input.nextLine().trim();
                     if (!addMore.equalsIgnoreCase("S")) {
                         break;
                     }
                 }
-                manageBooks.getAllBooks();
+                printBookTitles();
                 break;
 
             case 2:
-                manageBooks.getAllBooks();
+                printBookTitles();
                 break;
 
             case 3:
                 System.out.println("****Lista Completa de libros****");
-                manageBooks.getAllBooks();
+                printBookTitles();
                 System.out.print("\nIngrese el índice del libro: \n");
                 int index = input.nextInt();
                 try {
@@ -51,31 +64,33 @@ public class Menu {
                     System.out.println("Error: " + e.getMessage());
                 }
                 break;
+
             case 4:
-                manageBooks.getAllBooks();
-                System.out.println("Ingrese la posicion en la que quiere agregar el nuevo libro: ");
+                System.out.println("*******Ingrese la posicion en la que quiere agregar el nuevo libro: ******* \n");
+                printBookTitles();
                 int position = input.nextInt();
-                System.out.println("Ingrese el nombre del nuevo libro: ");
                 input.nextLine();
+                System.out.println("Ingrese el nombre del nuevo libro: ");
+
                 try {
                     manageBooks.addBookByIndex(position, new Book(input.nextLine()));
                     System.out.println("Libro agregado correctamente");
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
-                manageBooks.getAllBooks();
+                printBookTitles();
                 break;
 
             case 5:
                 System.out.println("Digite el nombre del libro que desea eliminar: \n");
-                manageBooks.getAllBooks();
+                printBookTitles();
                 String title = input.nextLine();
                 if (manageBooks.removeBook(title)) {
                     System.out.println("Libro eliminado correctamente.");
                 } else {
                     System.out.println("El libro que desea eliminar no está en la lista");
                 }
-                manageBooks.getAllBooks();
+                printBookTitles();
                 break;
 
             default:

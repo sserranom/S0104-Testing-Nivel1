@@ -1,9 +1,11 @@
 package Ejercicio1;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 
 public class ManageBooksTest {
@@ -12,7 +14,7 @@ public class ManageBooksTest {
     private ManageBooks manageBooks;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         manageBooks = new ManageBooks(new ArrayList<>());
 
         manageBooks.addBook(new Book("Bases de Datos"));
@@ -24,8 +26,16 @@ public class ManageBooksTest {
     @DisplayName("Comprueba si la lista no es nula despues de agregar Objetos")
     @Test
     public void bookListNotNullTest() {
+        ManageBooks books = new ManageBooks(new ArrayList<>());
 
-        assertNotNull(manageBooks.getBooks(), "La Lista deberia tener almenos un elemento");
+        assertNotNull(books.getBooks(), "La lista no debería ser nula");
+        assertTrue(books.getBooks().isEmpty(), "La lista debería estar vacía al inicio");
+
+        books.addBook(new Book("Lenguaje C"));
+
+        assertFalse(books.getBooks().isEmpty(), "La lista no debería estar vacía después de agregar un libro");
+        assertEquals(1, books.getBooks().size(), "La lista debería contener exactamente 1 libro");
+
     }
 
     @DisplayName("Comprueba que la Lista tenga el tamaño esperado despues de agregar varios objetos")
@@ -47,8 +57,13 @@ public class ManageBooksTest {
     @Test
     public void noDuplicateTitlesTest() {
 
-        manageBooks.addBook(new Book("bases de datos"));
-        assertEquals(4, manageBooks.getBooks().size());
+        Book book = new Book("Bases de datos");
+
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            manageBooks.addBook(book); // Esto debería lanzar la excepción
+        });
+
+        assertEquals("El libro Bases de datos ya existe", thrown.getMessage());
     }
 
     @DisplayName("Valida que se puede recuperar el titulo de un libro dada una posicion especifica")

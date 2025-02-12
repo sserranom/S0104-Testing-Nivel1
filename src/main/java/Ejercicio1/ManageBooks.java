@@ -1,9 +1,6 @@
 package Ejercicio1;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ManageBooks {
 
@@ -24,32 +21,33 @@ public class ManageBooks {
         }
         for (Book currentBook : books) {
             if (currentBook.getTitle().equalsIgnoreCase(book.getTitle())) {
-                System.out.println("El libro ya existe");
-                return;
+                throw new IllegalArgumentException("El libro " + book.getTitle() + " ya existe");
             }
         }
         books.add(book);
         books.sort(Comparator.comparing(b -> b.getTitle().toLowerCase()));
     }
 
-    public void getAllBooks() {
+    public List<String> getAllBooks() {
+        List<String> bookTitles = new ArrayList<>();
         int index = 0;
         for (Book currentBook : books) {
-            System.out.println(index + ": " + currentBook.getTitle());
+            bookTitles.add(index + ": " + currentBook.getTitle());
             index++;
         }
+        return bookTitles;
     }
 
-
     public List<Book> getBooks() {
+
         if (books.isEmpty()) {
-            System.out.println("No hay Libros en la colección");
+            return new ArrayList<>();
         }
         return books;
-
     }
 
     public Book getBookByIndex(int index) {
+
         if (index < 0 || index >= books.size()) {
             throw new IndexOutOfBoundsException("El Índice " + index + " esta fuera de rango");
         }
@@ -59,6 +57,11 @@ public class ManageBooks {
     public void addBookByIndex(int index, Book book) {
         if (index < 0 || index > books.size()) {
             throw new IndexOutOfBoundsException("El Índice " + index + " esta fuera de rango");
+        }
+        for (Book currentBook : books) {
+            if (currentBook.getTitle().equalsIgnoreCase(book.getTitle())) {
+                throw new IllegalArgumentException("El libro " + book.getTitle() + " ya está existe");
+            }
         }
         books.add(index, book);
     }

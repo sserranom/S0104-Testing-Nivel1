@@ -21,12 +21,12 @@ public class Book {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Book book = (Book) obj;
-        return title.equals(book.getTitle());
+        return title.trim().equalsIgnoreCase(book.getTitle().trim());
     }
 
     @Override
     public int hashCode() {
-        return title.toLowerCase().hashCode();
+        return title.trim().toLowerCase().hashCode();
     }
 
     @Override

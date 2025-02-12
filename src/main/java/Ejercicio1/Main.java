@@ -18,7 +18,7 @@ public class Main {
 
             menu.showMenu();
         } catch (Exception e) {
-            System.out.println("Ocurrió un error: " + e.getMessage());
+            System.out.println("error: " + e.getMessage());
         }
 
     }
